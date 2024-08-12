@@ -1,0 +1,12 @@
+{
+  "name": "TargetR Select All Button",
+  "description": "adds a button to targetr sites, allowing to seletc/deselect all list items",
+  "version": "0.8.1",
+  "manifest_version": 3,
+  "content_scripts": [
+    {
+      "matches": ["https://stacks.targetr.net/*"],
+      "js": ["Content.js"]
+    }
+  ]
+}
