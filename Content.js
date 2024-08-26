@@ -35,7 +35,7 @@ let getContentPanel = () => {
   return contentPanels[0];
 };
 
-let buttonClickListener = () => {
+let buttonClickListener = (selectOrDeselect) => {
   let contentPanel = getContentPanel();
   const inputs = [];
   const tds = contentPanel.getElementsByTagName('td');
@@ -45,7 +45,7 @@ let buttonClickListener = () => {
     let inputs = td.getElementsByTagName('input');
     for (let ip of inputs) {
       //ip.click();
-      ip.checked = true;
+      ip.checked = selectOrDeselect;
       // TODO HLDRM mit checked = true / false rechnen? dann könnte man 2
       // buttons machen. einen um alle auszuwählen, anderen um alle abzuwählen?
       // oder overkill?
@@ -80,7 +80,7 @@ let buttonClickListener = () => {
   */
 };
 
-let insertButton = () => {
+let insertButton = (title, selectOrDeselect) => {
   //let paginationElem = $('.contentPanel ul.pagination');
   let contentPanels = document.getElementsByClassName('contentPanel');
   if (!contentPanels || !contentPanels[0]) {
@@ -102,14 +102,20 @@ let insertButton = () => {
   //let button = new Node();
   const liElement = document.createElement('li');
   liElement.classList.add('enabled');
-  const button = document.createElement('a');
-myLog(button);
-  button.textContent = '(De-)Select All';
+
+  const button = document.createElement('button');
+  button.classList.add('btn', 'btn-default');
+  button.textContent = title;
+
+  const icon = document.createElement('i');
+  icon.classList.add('fa', 'fa-check-square-o');
+
+  button.insertBefore(icon, button.firstChild);
 
 /*  button.onClick = (e) => {
     window.alert('clicked!');
   };*/
-  button.addEventListener('click', buttonClickListener);
+  button.addEventListener('click', () => buttonClickListener(selectOrDeselect));
 
   //paginationElem.after(button);
   paginationElem.appendChild(liElement);
@@ -117,7 +123,8 @@ myLog(button);
 };
 
 const contentPanel = await waitForElement('.contentPanel');
-insertButton();
+insertButton('Select All', true);
+insertButton('Deselect All', false);
 
 // HLDRM start: old solution with simple timeout. not needed now wtih promise.
 
@@ -133,8 +140,6 @@ insertButton();
 
 //}, 2000);
 // HLDM end
-
-
 
 /*let checkboxes = $('.contentPanel td input');
 
