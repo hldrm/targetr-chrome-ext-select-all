@@ -122,9 +122,12 @@ const insertButton = (title, selectOrDeselect) => {
   liElement.appendChild(button);
 };
 
-const contentPanel = await waitForElement('.contentPanel');
-insertButton('Select All', true);
-insertButton('Deselect All', false);
+(async function main() {
+  const contentPanel = await waitForElement('.contentPanel');
+
+  insertButton('Select All', true);
+  insertButton('Deselect All', false);
+})();
 
 // HLDRM start: old solution with simple timeout. not needed now wtih promise.
 
