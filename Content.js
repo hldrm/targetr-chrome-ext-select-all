@@ -1,4 +1,4 @@
-let myLog = (text) => {
+const myLog = (text) => {
   console.log("[TargetR clickR] " + text);
 };
 
@@ -26,8 +26,8 @@ function waitForElement(selector) {
     });
 }
 
-let getContentPanel = () => {
-  let contentPanels = document.getElementsByClassName('contentPanel');
+const getContentPanel = () => {
+  const contentPanels = document.getElementsByClassName('contentPanel');
   if (!contentPanels || !contentPanels[0]) {
     return undefined;
   }
@@ -35,14 +35,14 @@ let getContentPanel = () => {
   return contentPanels[0];
 };
 
-let buttonClickListener = (selectOrDeselect) => {
-  let contentPanel = getContentPanel();
+const buttonClickListener = (selectOrDeselect) => {
+  const contentPanel = getContentPanel();
   const inputs = [];
   const tds = contentPanel.getElementsByTagName('td');
 
   console.log(tds);
   for (let td of tds) {
-    let inputs = td.getElementsByTagName('input');
+    const inputs = td.getElementsByTagName('input');
     for (let ip of inputs) {
       //ip.click();
       ip.checked = selectOrDeselect;
@@ -80,23 +80,23 @@ let buttonClickListener = (selectOrDeselect) => {
   */
 };
 
-let insertButton = (title, selectOrDeselect) => {
+const insertButton = (title, selectOrDeselect) => {
   //let paginationElem = $('.contentPanel ul.pagination');
-  let contentPanels = document.getElementsByClassName('contentPanel');
+  const contentPanels = document.getElementsByClassName('contentPanel');
   if (!contentPanels || !contentPanels[0]) {
     return false;
   }
 
-  let contentPanel = contentPanels[0];
+  const contentPanel = contentPanels[0];
 
   myLog(contentPanel);
 
-  let paginationElems = contentPanel.getElementsByClassName('pagination');
+  const paginationElems = contentPanel.getElementsByClassName('pagination');
   if (!paginationElems || !paginationElems[0]) {
     return false;
   }
 
-  let paginationElem = paginationElems[0];
+  const paginationElem = paginationElems[0];
   myLog(paginationElem);
 
   //let button = new Node();
