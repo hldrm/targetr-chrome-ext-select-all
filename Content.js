@@ -4,6 +4,28 @@ let myLog = (text) => {
 
 myLog("TargetR clickR: Content.js starting up!");
 
+// a function returning a promise, rosolving once the contentPanel has shown up
+function waitForElement(selector) {
+    return new Promise(resolve => {
+        if (document.querySelector(selector)) {
+            return resolve(document.querySelector(selector));
+        }
+
+        const observer = new MutationObserver(mutations => {
+            if (document.querySelector(selector)) {
+                observer.disconnect();
+                resolve(document.querySelector(selector));
+            }
+        });
+
+        // If you get "parameter 1 is not of type 'Node'" error, see https://stackoverflow.com/a/77855838/492336
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+    });
+}
+
 let getContentPanel = () => {
   let contentPanels = document.getElementsByClassName('contentPanel');
   if (!contentPanels || !contentPanels[0]) {
@@ -94,7 +116,12 @@ myLog(button);
   liElement.appendChild(button);
 };
 
-setTimeout(() => {
+const contentPanel = await waitForElement('.contentPanel');
+insertButton();
+
+// HLDRM start: old solution with simple timeout. not needed now wtih promise.
+
+//setTimeout(() => {
   /*let windowConsole = console;
   let console = {};
   window.console = console;
@@ -102,9 +129,12 @@ setTimeout(() => {
     windowConsole.log('TargetR clickR: ' + text);
   };*/
 
-  insertButton();
+  //insertButton();
 
-}, 2000);
+//}, 2000);
+// HLDM end
+
+
 
 /*let checkboxes = $('.contentPanel td input');
 
